@@ -12,6 +12,12 @@ public class Paal{
         locations.add("Oosterhout");
     }
 
+    public void showArrayListItems(){
+        for (String location : locations) {
+            System.out.println(location);
+        }
+    }
+
     public String typeVervoerOV(String typeVervoer){
         return this.typeVervoer;
     }

@@ -1,16 +1,14 @@
 public class Kaart {
-    private double saldo = 0.00;
-    private int kaartNummer = 3528;
-    private boolean kaartGeldig = true, isIngecheckt;
+    private double saldo;
+    private int kaartNummer;
+    private boolean kaartGeldig, isIngecheckt;
 
     public double getSaldo() {
         System.out.println("Uw saldo is: €" + saldo);
         return saldo;
     }
 
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
+    public void setSaldo(double saldo) {this.saldo = saldo;}
 
     public boolean getGeldig() {
         if (!kaartGeldig) {
@@ -35,12 +33,12 @@ public class Kaart {
         return isIngecheckt;
     }
 
-    public void setIsIngecheckt(boolean isIngecheckt) {
-        this.isIngecheckt = isIngecheckt;
-    }
+    public void setIsIngecheckt(boolean isIngecheckt) {this.isIngecheckt = isIngecheckt;}
 
     public int getKaartNummer() {
         System.out.println("Uw kaartnummer is: " + kaartNummer);
         return kaartNummer;
     }
+
+    public void setKaartNummer(int kaartNummer){this.kaartNummer = kaartNummer;}
 }
