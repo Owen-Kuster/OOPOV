@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class OV {
     public static void main(String[] args) {
-        Boolean goedAntwoordInformatie = false, goedAntwoordGeldig = false, goedAntwoordSaldo = false, goedAntwoordVervoer = false, goedKeuze = false, opnieuwReizen = false, goedAntwoordNogMeerInfo = false;
+        Boolean opnieuwReizen = false;
 
         Scanner sc = new Scanner(System.in);
         Kaart kaart1 = new Kaart();
@@ -10,24 +10,29 @@ public class OV {
         Automaat automaat1 = new Automaat();
 
         /** *Initializeren*/
-        kaart1.setSaldo(30);
+        kaart1.setSaldo(0);
         kaart1.setKaartNummer(3528);
         kaart1.setGeldig(true);
         kaart1.setIsIngecheckt(false);
 
+        paal1.setInstapTarief(0);
+
+        /** *Begin*/
         System.out.println("Welkom bij uw OV");
         System.out.println("Wat wilt u doen?");
         System.out.println("");
 
         while (!opnieuwReizen) {
+            Boolean goedAntwoordInformatie = false, goedAntwoordSaldo = false, goedKeuze = false, goedAntwoordNogMeerInfo = false, reizenCheck = false, gekozenVervoer = false, gekozenLocatie = false;
 
-            /** *uitleg*/
+            /** *Keuze lijst*/
             System.out.println("1: Saldo Opladen");
             System.out.println("2: Kaartinformatie");
-            System.out.println("3: Uitchecken");
-            System.out.println("4: Reizen");
+            System.out.println("3: Reizen");
+            System.out.println("4: Uitchecken");
             System.out.println("");
 
+            /** *Kiezen uit lijst*/
             while (!goedKeuze) {
                 System.out.print("Voer uw antwoord in: ");
                 String invoer = sc.nextLine();
@@ -43,9 +48,8 @@ public class OV {
                         System.out.println("");
                     }
 
-
+                    /** *Saldo opwaarderen*/
                     if (keuze == 1) {
-                        /** Set saldo of card */
                         while (!goedAntwoordSaldo) {
                             System.out.println("Wat is uw saldo?");
                             System.out.print("Voer uw saldo in: ");
@@ -56,11 +60,13 @@ public class OV {
                                 goedAntwoordSaldo = true;
                             } catch (NumberFormatException e) {
                                 System.out.println("Voer een geldig bedrag in.");
+                                System.out.println(" ");
                             }
                         }
 
                         kaart1.getSaldo();
                     } else if (keuze == 2) {
+                        /** *Informatie*/
                         while (!goedAntwoordInformatie) {
                             System.out.println("Welke Informatie wilt u zien?");
                             System.out.println("1: Saldo");
@@ -69,6 +75,7 @@ public class OV {
                             System.out.println("4: Bent u ingecheckt?");
                             System.out.println("5: Welke haltes zijn er?");
 
+                            /** *Kiezen welke info*/
                             String invoerInformatie = sc.nextLine();
                             try {
                                 int informatieKeuze = Integer.parseInt(invoerInformatie);
@@ -99,6 +106,8 @@ public class OV {
                                             System.out.println("");
                                             goedAntwoordNogMeerInfo = false;
                                     }
+
+                                    /** *Vragen opnieuw info*/
                                     while (!goedAntwoordNogMeerInfo) {
                                         System.out.println("Wilt u nog een keer uw informatie bekijken?");
                                         System.out.println("Ja/nee");
@@ -110,10 +119,9 @@ public class OV {
                                             goedAntwoordNogMeerInfo = true;
                                         } else {
                                             System.out.println("Voer een ja of nee in.");
+                                            System.out.println(" ");
                                         }
                                     }
-
-
                                 } else {
                                     System.out.println("Voer in 1,2,3,4 of 5 in.");
                                 }
@@ -121,55 +129,74 @@ public class OV {
                                 System.out.println("Voer een geldig getal in.");
                             }
                         }
+                        /** *Reizen*/
+                    } else if (keuze == 3){
+                        while(!reizenCheck){
+                            /** *Kiezen vervoer*/
+                            while(!gekozenVervoer){
+                                System.out.println("Wilt u met de bus of trein reizen?");
+                                System.out.print("Antwoord: ");
+                                String vervoerKeuze = sc.nextLine();
+                                if (vervoerKeuze.equalsIgnoreCase("bus")) {
+                                    paal1.setInstapTarief(4);
+                                    if (kaart1.getSaldo() < paal1.getInstapTarief()) {
+                                        System.out.println("Geen saldo. Laad alstublieft uw kaart op.");
+                                        reizenCheck = true;
+                                        gekozenLocatie = true;
+                                    } else {
+                                        paal1.getInstapTarief();
+                                    }
+                                    gekozenVervoer = true;
+                                } else if (vervoerKeuze.equalsIgnoreCase("trein")) {
+                                    paal1.setInstapTarief(10);
+                                    if (kaart1.getSaldo() < paal1.getInstapTarief()) {
+                                        System.out.println("Geen saldo. Laad alstublieft uw kaart op.");
+                                        reizenCheck = true;
+                                        gekozenLocatie = true;
+                                    } else {
+                                        paal1.getInstapTarief();
+                                    }
+                                    gekozenVervoer = true;
+                                } else if (vervoerKeuze.equalsIgnoreCase("trein")){
+                                    paal1.setInstapTarief(10);
+                                    paal1.getInstapTarief();
+                                    gekozenVervoer = true;
+                                } else {
+                                    System.out.println("Voer in: Bus of Trein.");
+                                }
+                                System.out.println(" ");
+                                System.out.println("U wilt reizen met de: " +vervoerKeuze);
+                                System.out.println(" ");
+                            }
+
+                            /** *Locatie kiezen*/
+                            while(!gekozenLocatie){
+                                System.out.println("Waar wilt u heen?");
+                                System.out.print("U kunt kiezen uit:");
+                                paal1.showArrayListItems();
+                                System.out.println(" ");
+                                System.out.println("Type het exact over!");
+                                System.out.print("U wilt naar: ");
+                                String locatieVervoer = sc.nextLine();
+
+                                /** *Locatie prijs*/
+                                if (paal1.getLocations().contains(locatieVervoer)) {
+                                    double reisbedrag = paal1.berekenReisbedrag(locatieVervoer);
+                                    System.out.println("U wilt naar " + locatieVervoer + " reizen, dit kost u: €" + reisbedrag);
+                                    gekozenLocatie = true;
+                                } else {
+                                    System.out.println("Voert alstublieft een geldige locatie in.");
+                                }
+                            }
+
+
+                        }
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Voer een geldig getal in van 1 tot en met 4.");
                     System.out.println("");
                 }
             }
-
-
-            /** Set if card is valid */
-            while (!goedAntwoordGeldig) {
-                System.out.println("Is uw kaart geldig?");
-                System.out.print("Ja/Nee: ");
-                String antwoordGeldig = sc.nextLine();
-
-                if (antwoordGeldig.equalsIgnoreCase("ja") || antwoordGeldig.equalsIgnoreCase("nee")) {
-                    goedAntwoordGeldig = true;
-                    kaart1.setGeldig(antwoordGeldig.equalsIgnoreCase("ja"));
-                } else {
-                    System.out.println("Voer een ja of nee in.");
-                }
-            }
-            kaart1.getGeldig();
-
-            kaart1.getKaartNummer();
-
-            /** *arraylist items oproepen*/
-            paal1.arrayListItems();
-
-            /** *Kiezen welke type vervoer*/
-            while (!goedAntwoordVervoer) {
-                System.out.println("Reist u met de bus of met de trein?");
-                System.out.print("Voer in: ");
-                String antwoordVervoer = sc.nextLine();
-
-                if (antwoordVervoer.equalsIgnoreCase("bus")) {
-                    goedAntwoordVervoer = true;
-                    paal1.typeVervoerOV(("bus"));
-                } else if (antwoordVervoer.equalsIgnoreCase("trein")) {
-                    goedAntwoordVervoer = true;
-                    paal1.typeVervoerOV(("trein"));
-                } else {
-                    System.out.println("Voer in: Trein of Bus");
-                }
-                System.out.println("U wilt met de " + antwoordVervoer + " reizen.");
-            }
-
-
-            paal1.inchecken(kaart1);
-
         }
 
 
