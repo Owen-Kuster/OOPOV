@@ -7,14 +7,7 @@ public class OV {
         Scanner sc = new Scanner(System.in);
         Kaart kaart = new Kaart();
         Paal paal = new Paal();
-        Automaat automaat = new Automaat(kaart, paal);
-
-        /** *Initializeren*/
-        kaart.setSaldo(0);
-        kaart.setKaartNummer(3528);
-        kaart.setGeldig(true);
-        kaart.setIsIngecheckt(false);
-        paal.setInstapTarief(10);
+        Automaat automaat = new Automaat();
 
         /** *Begin*/
         System.out.println("Welkom bij uw OV");
@@ -32,11 +25,11 @@ public class OV {
             System.out.println("4: Uitchecken");
             System.out.println("5: Stoppen");
             System.out.println("");
-
+            String invoer;
             /** *Kiezen uit lijst*/
             while (!goedKeuze) {
                 System.out.print("Voer uw antwoord in: ");
-                String invoer = sc.nextLine();
+                invoer = sc.nextLine();
                 System.out.println("");
 
                 int keuze;
@@ -53,11 +46,11 @@ public class OV {
                     switch (keuze) {
                         case 1:
                             /** *Saldo opwaarderen*/
-                            automaat.saldoOpladen();
+                            automaat.saldoOpladen(kaart);
                             break;
                         case 2:
                             /** *Informatie*/
-                            automaat.toonKaartInfo();
+                            automaat.toonKaartInfo(kaart);
                             break;
                         case 3:
                             /** *Inchecken*/
@@ -65,7 +58,7 @@ public class OV {
                             break;
                         case 4:
                             /** *Uitchecken*/
-                            paal.uitchecken();
+                            paal.uitchecken(kaart);
                             break;
                         case 5:
                             /** *Stoppen*/
@@ -74,7 +67,7 @@ public class OV {
                             opnieuwReizen = true;
                             break;
                     }
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
                     System.out.println("Voer een geldig getal in.");
                 }
             }

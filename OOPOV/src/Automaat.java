@@ -1,31 +1,28 @@
 import java.util.Scanner;
 
 public class Automaat {
-    private Kaart kaart;
-    private Paal paal;
     private Scanner scanner;
 
-    public Automaat(Kaart kaart, Paal paal) {
-        this.kaart = kaart;
-        this.paal = paal;
+    public Automaat(){
         this.scanner = new Scanner(System.in);
     }
 
-    public void saldoOpladen() {
+
+    public void saldoOpladen(Kaart kaart) {
         System.out.println("--- Saldo Opladen ---");
         System.out.print("Hoeveel euro wilt u toevoegen? €");
 
         try {
-            double bedrag = Double.parseDouble(scanner.nextLine());
+            double bedrag = Double.parseDouble(this.scanner.nextLine());
             kaart.setSaldo(bedrag);
             System.out.println("Uw saldo is nu: €" + kaart.getSaldo());
             System.out.println(" ");
-        } catch (NumberFormatException e) {
+        } catch (Exception ex) {
             System.out.println("Voer een geldig bedrag in!");
         }
     }
 
-    public void toonKaartInfo() {
+    public void toonKaartInfo(Kaart kaart) {
         boolean opnieuwInfo = false;
         while(!opnieuwInfo){
             System.out.println("--- Kaartinformatie ---");
@@ -46,7 +43,7 @@ public class Automaat {
 
             System.out.println("Wilt u het opnieuw zien?");
             System.out.println("Ja/Nee");
-            String keuze = scanner.nextLine().toLowerCase();
+            String keuze = this.scanner.nextLine().toLowerCase();
 
             switch (keuze) {
                 case "ja":
@@ -56,17 +53,13 @@ public class Automaat {
                     opnieuwInfo = true;
                     break;
                 default:
-                    System.out.println("Voer Ja of Nee in");
+                    System.out.println("Voer Ja of Nee in.");
             }
 
             System.out.println(" ");
         }
-
     }
 
-    public void sluit(){
-        scanner.close();
-    }
 
 
 }

@@ -3,6 +3,13 @@ public class Kaart {
     private int kaartNummer;
     private boolean kaartGeldig, isIngecheckt;
 
+    public Kaart() {
+        saldo = 0;
+        kaartNummer = 3528;
+        kaartGeldig = true;
+        isIngecheckt = false;
+    }
+
     public double getSaldo() {
         return saldo;
     }

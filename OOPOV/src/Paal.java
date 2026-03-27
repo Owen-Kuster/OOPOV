@@ -3,48 +3,48 @@ import java.util.Scanner;
 
 public class Paal {
     private double instapTarief;
-    private Kaart kaart;
     private Scanner sc = new Scanner(System.in);
 
-//    private String typeVervoer;
-//    private double afstandTafief;
-//    private ArrayList<String> locations = new ArrayList<String>();
+    private String typeVervoer;
+    private double afstandTafief;
+    private ArrayList<String> locations = new ArrayList<String>();
 
-//    public Paal(){
-//        locations.add("Gent");
-//        locations.add("Arnhem");
-//        locations.add("Nijmegen");
-//        locations.add("Oosterhout");
-//    }
+    public Paal(){
+        instapTarief = 10;
+        locations.add("Gent");
+        locations.add("Arnhem");
+        locations.add("Nijmegen");
+        locations.add("Oosterhout");
+    }
 
-//    public double berekenReisbedrag(String locatie) {
-//        switch (locatie) {
-//            case "Gent":
-//                return instapTarief + 15.00;
-//            case "Arnhem":
-//                return instapTarief + 5.00;
-//            case "Nijmegen":
-//                return instapTarief + 3.00;
-//            case "Oosterhout":
-//                return instapTarief + 8.00;
-//            default:
-//                return instapTarief;
-//        }
-//    }
+    public double berekenReisbedrag(String locatie) {
+        switch (locatie) {
+            case "Gent":
+                return instapTarief + 15.00;
+            case "Arnhem":
+                return instapTarief + 5.00;
+            case "Nijmegen":
+                return instapTarief + 3.00;
+            case "Oosterhout":
+                return instapTarief + 8.00;
+            default:
+                return instapTarief;
+        }
+    }
 
-//    public void showArrayListItems(){
-//        for (String location : locations) {
-//            System.out.print(" -" +location);
-//        }
-//    }
+    public void showArrayListItems(){
+        for (String location : locations) {
+            System.out.print(" -" +location);
+        }
+    }
 
-//    public ArrayList<String> getLocations() {
-//        return locations;
-//    }
+    public ArrayList<String> getLocations() {
+        return locations;
+    }
 
-//    public String typeVervoerOV(String typeVervoer){
-//        return this.typeVervoer;
-//    }
+    public String typeVervoerOV(String typeVervoer){
+        return this.typeVervoer;
+    }
 
     public void inchecken(Kaart kaart) {
         if (!kaart.getGeldig()) {
@@ -66,7 +66,6 @@ public class Paal {
             return;
         }
 
-        this.kaart = kaart;
 
         kaart.setIsIngecheckt(true);
         System.out.println("Welkom bij de NS");
@@ -84,15 +83,15 @@ public class Paal {
         this.instapTarief = instapTarief;
     }
 
-    public void uitchecken() {
+    public void uitchecken(Kaart kaart) {
         if (kaart == null || !kaart.getIsIngecheckt()) {
             System.out.println("Geen kaart ingecheckt!");
             System.out.println(" ");
-            return;
-        }
 
-        this.kaart.setIsIngecheckt(false);
-        System.out.println("Kaart uitgecheckt");
-        System.out.println(" ");
+        } else {
+            kaart.setIsIngecheckt(false);
+            System.out.println("Kaart uitgecheckt");
+            System.out.println(" ");
+        }
     }
 }
